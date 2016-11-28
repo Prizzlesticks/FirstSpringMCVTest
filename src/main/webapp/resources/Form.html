@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+<link rel="stylesheet" type="text/css" href="css/Main.css"/>
+<title>Enrollment Form</title>
+<script>
+function validateForm() {
+    var firstname = document.forms["form1"]["firstname"].value;
+    var lastname = document.forms["form1"]["lastname"].value;
+    var email = document.forms["form1"]["email"].value;
+    var age = document.forms["form1"]["age"].value;
+    var phoneNum = document.forms["form1"]["phone"].value;
+    var program = document.forms["form1"]["program"].value;
+   
+    var stripped = phoneNum.replace(/\D/g, '');
+    var valid = true;
+    var message = "";
+    var age1 = parseInt(age, 10);
+    
+    
+    if (firstname === "") {
+        message += "First Name is a required field. \n";
+        
+        //return false;
+        valid = false;
+    }      
+    if (lastname === "") {
+    	message += "Last Name is a required field. \n";
+        
+        //return false;
+        valid = false;
+    }       
+    
+    if (age === "") {
+    	message += "Age is a required field. \n";
+        
+        //return false;
+        valid = false;
+        
+    } else if (age1 < 18) {
+        	message += "I'm sorry you must be 18 to enroll. \n";
+            
+            //return false;
+            valid = false;
+    }
+    
+    if (email === "") {
+    	message += "Email is a required field. \n";
+        
+        //return false;
+        valid = false;
+            
+    } else if (!(email.includes ("@"))) {
+    	message += "Please enter a valid email. \n"
+    	valid = false;
+    
+    } else if (!(/^([a-z0-9])([\w\.\-\+])+([a-z0-9])\@((\w)([\w\-]?)+\.)+(com|net|co|org|edu|mil|edu|gov)$/i.test(email))) {   
+    	message += "Please enter a valid email. \n"
+        	valid = false;
+    }
+
+    if (stripped === "") {
+    	message += "Phone Number is a required field.\n";
+    		//return false;
+    		valid = false;
+
+	} else if (!(stripped.length == 10)) {     
+	   message += "The phone number should be 10 digits including your Area Code. \n";
+    		valid = false;
+            
+        }
+    
+    if (program === "") {
+    	message += "You must select a program. \n";
+        
+        //return false;
+        valid = false;
+    }
+    
+    if (message !== "") {
+    	alert(message);
+    }
+    document.forms["form1"]["phone"].value = stripped;
+      return valid;
+} 
+    //
+</script> 
+
+</head>
+<body>
+<h1>Enroll now!</h1>
+<h2> Remember you must be 18 to enroll </h2>
+
+
+<form name = "form1" action= "../enroll" onsubmit="return validateForm();" method="post">
+<p> First Name: <br><input type="text" name="firstname">
+<br>Last Name: <br><input type="text" name="lastname">
+<br>Email: <br><input type="text" name="email">
+<br>Age: <br><input type="text" name="age" min=18>
+<br>Phone Number: <br><input type="text"  name="phone"></p>
+
+
+<p>
+
+Select a bootcamp to sign up for:<br>
+<input type= "radio" name="program" value=Java> Java <br>
+<input type= "radio" name="program" value=FrontEnd> Front End <br>	
+<input type= "radio" name="program" value=.NET> .NET</p>
+
+<p>Choose a Start Date:
+<select name = "date">
+  <option value="January 3rd" >January 3rd</option>
+  <option value="March 17th" >March 17th</option>
+  <option value="May 28th" >May 28th</option>
+</select><br>
+<input type="submit" value= "Click to Submit!" >
+<br></p>
+</form> 
+</body>
+</html>
+
